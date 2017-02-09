@@ -4,16 +4,15 @@
 
 #include "GradientShow.h"
 #include "DrawUtils.h"
-#include "stdio.h"
 using namespace cv;
 
 void GradientShow::Init() {
     namedWindow(winName);
     setMouseCallback(winName,cbMouseAdapter,this);
     matFrame = Mat(512,512,CV_8UC4,Scalar(255,255,255));
-     circle(matFrame,Point(256,256),100,Scalar(0,255,0),5);
+    // circle(matFrame,Point(256,256),100,Scalar(0,255,0),5);
     //rectangle(matFrame,Point(156,156),Point(356,356),Scalar(0,255,0),CV_FILLED);
-
+    matFrame = imread("out_001.png");
 }
 
 void GradientShow::Run() {
@@ -67,7 +66,7 @@ void GradientShow::drawGradient(int dx, int dy) {
     int height = matFrame.rows;
     int width = matFrame.cols;
     Point center(width / 2, height / 2);
-    if (dx != 0 || dy != 0)
+    if (abs(dx) > 30 || abs(dy) > 30)
     {
         double x,y;
         x = dx;

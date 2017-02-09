@@ -37,7 +37,12 @@ void SnapImage::Run() {
             captureVideo.read(matFrame);
             imshow(winName,matFrame);
             frameIndex++;
-            waitKey(waitTime);
+            int key = waitKey(waitTime);
+            if (key == ' ')
+            {
+                std::string outname = genOutFileName();
+                imwrite(outname,matFrame);
+            }
         }
     }
 }
@@ -52,7 +57,7 @@ std::string SnapImage::genOutFileName() {
 
 int main(int argc, char *argv[])
 {
-    SnapImage snapImage();
+    SnapImage snapImage("back.mp4","out");
     snapImage.Init();
     snapImage.Run();
     return 0;
