@@ -5,9 +5,9 @@ set(OpenCV_DIR "/usr/local/opt/opencv3/share/OpenCV")
 # OpenCV
 FIND_PACKAGE( OpenCV REQUIRED )
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
+FIND_PACKAGE(Boost REQUIRED program_options)
 set(SOURCE_FILES main.cpp GradientShow.cpp GradientShow.h DrawUtils.h DrawUtils.cpp)
 add_executable(ImageProcess ${SOURCE_FILES} )
 add_executable(SnapImage SnapImage.cpp)
-target_link_libraries(ImageProcess ${OpenCV_LIBS})
-target_link_libraries(SnapImage ${OpenCV_LIBS})
+target_link_libraries(ImageProcess ${OpenCV_LIBS} ${Boost_PROGRAM_OPTIONS_LIBRARY})
+target_link_libraries(SnapImage ${OpenCV_LIBS} ${Boost_PROGRAM_OPTIONS_LIBRARY})

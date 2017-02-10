@@ -8,7 +8,7 @@
 #include <string>
 class GradientShow {
 public:
-    GradientShow(const std::string &winName);
+    GradientShow(const std::string &winName, const std::string &inputName);
 
     void Init();
     void Run();
@@ -30,6 +30,8 @@ private:
     cv::Mat matFrame;
     cv::Mat matGradX; // the gradient in Axis X
     cv::Mat matGradY; // the gradient in Axis Y
+private:
+    std::string inputImagePath;
 
 };
 

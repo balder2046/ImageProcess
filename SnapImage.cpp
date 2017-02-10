@@ -3,7 +3,9 @@
 //
 
 #include "SnapImage.h"
+#include <boost/program_options.hpp>
 using namespace cv;
+namespace po = boost::program_options;
 SnapImage::SnapImage(const std::string &inputFile,const std::string &outFileBase) {
     winName = "Capture";
     writeFileNo = 0;
@@ -42,6 +44,8 @@ void SnapImage::Run() {
             {
                 std::string outname = genOutFileName();
                 imwrite(outname,matFrame);
+            } else if (key == 27) {
+                break;
             }
         }
     }
@@ -54,10 +58,31 @@ std::string SnapImage::genOutFileName() {
     return szBuf;
 }
 
-
-int main(int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
-    SnapImage snapImage("back.mp4","out");
+    po::options_description description("Usage: SnapImage -i <input video> -o <out base name>");
+    description.add_options()("input,i", po::value<std::string>(), "input video");
+    description.add_options()("output,o", po::value<std::string>(), "output picture's filename base");
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, description), vm);
+    po::notify(vm);
+    std::string inputfilename;
+    std::string basename;
+    if (vm.count("input")) {
+        inputfilename = vm["input"].as<std::string>();
+    } else {
+        std::cout << description;
+        return 1;
+    }
+    if (vm.count("output")) {
+        basename = vm["output"].as<std::string>();
+    } else {
+        std::cout << description;
+        return 1;
+    }
+
+
+    SnapImage snapImage(inputfilename, basename);
     snapImage.Init();
     snapImage.Run();
     return 0;

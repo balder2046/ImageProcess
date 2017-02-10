@@ -12,7 +12,7 @@ void GradientShow::Init() {
     matFrame = Mat(512,512,CV_8UC4,Scalar(255,255,255));
     // circle(matFrame,Point(256,256),100,Scalar(0,255,0),5);
     //rectangle(matFrame,Point(156,156),Point(356,356),Scalar(0,255,0),CV_FILLED);
-    matFrame = imread("out_001.png");
+    matFrame = imread(inputImagePath);
 }
 
 void GradientShow::Run() {
@@ -22,8 +22,8 @@ void GradientShow::Run() {
     waitKey(0);
 }
 
-GradientShow::GradientShow(const std::string &winName) : winName(winName) {
-
+GradientShow::GradientShow(const std::string &winName, const std::string &inputfilename) : winName(winName) {
+    inputImagePath = inputfilename;
     arrowLength = 50;
 }
 
