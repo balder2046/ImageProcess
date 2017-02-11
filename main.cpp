@@ -7,7 +7,7 @@ namespace po = boost::program_options;
 using namespace cv;
 
 int main(int argc, const char *argv[]) {
-    po::options_description desp("Usage: ImageProcess <inputimage>");
+    po::options_description desp("Usage: GradientShow <inputimage>");
     desp.add_options()("inputimage,i", po::value<std::string>());
     po::positional_options_description pos;
     pos.add("inputimage", 1);
